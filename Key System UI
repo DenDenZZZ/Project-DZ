@@ -1,0 +1,110 @@
+repeat task.wait() until game:IsLoaded()
+
+setfpscap(60)
+
+G2L["1"] = Instance.new("ScreenGui", game:GetService("Players").LocalPlayer:WaitForChild("PlayerGui"))
+G2L["1"]["Name"] = [[Project DZ]]
+G2L["1"]["ZIndexBehavior"] = Enum.ZIndexBehavior.Sibling
+
+G2L["2"] = Instance.new("Frame", G2L["1"])
+G2L["2"]["Active"] = true
+G2L["2"]["BorderSizePixel"] = 2
+G2L["2"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0)
+G2L["2"]["Size"] = UDim2.new(0, 250, 0, 125)
+G2L["2"]["Position"] = UDim2.new(0.37399, 0, 0.36857, 0)
+G2L["2"]["BorderColor3"] = Color3.fromRGB(255, 255, 255)
+G2L["2"]["Name"] = [[Key System]]
+G2L["2"]["BackgroundTransparency"] = 0.1
+
+G2L["3"] = Instance.new("TextLabel", G2L["2"])
+G2L["3"]["TextWrapped"] = true
+G2L["3"]["Active"] = true
+G2L["3"]["TextStrokeTransparency"] = 0
+G2L["3"]["BorderSizePixel"] = 0
+G2L["3"]["TextScaled"] = true
+G2L["3"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+G2L["3"]["TextSize"] = 20
+G2L["3"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+G2L["3"]["TextColor3"] = Color3.fromRGB(255, 255, 255)
+G2L["3"]["BackgroundTransparency"] = 1
+G2L["3"]["RichText"] = true
+G2L["3"]["Size"] = UDim2.new(0, 250, 0, 20)
+G2L["3"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+G2L["3"]["Text"] = [[Project DZ - Key System]]
+G2L["3"]["Name"] = [[Key System Title]]
+
+G2L["4"] = Instance.new("TextBox", G2L["2"])
+G2L["4"]["TextColor3"] = Color3.fromRGB(0, 0, 0)
+G2L["4"]["BorderSizePixel"] = 0
+G2L["4"]["TextSize"] = 14
+G2L["4"]["Name"] = [[Enter Key Box]]
+G2L["4"]["BackgroundColor3"] = Color3.fromRGB(255, 255, 255)
+G2L["4"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+G2L["4"]["Size"] = UDim2.new(0, 200, 0, 50)
+G2L["4"]["Position"] = UDim2.new(0.1, 0, 0.2, 0)
+G2L["4"]["BorderColor3"] = Color3.fromRGB(0, 0, 0)
+G2L["4"]["Text"] = [[Enter your key here]]
+
+G2L["5"] = Instance.new("TextButton", G2L["2"])
+G2L["5"]["TextWrapped"] = true
+G2L["5"]["BorderSizePixel"] = 2
+G2L["5"]["AutoButtonColor"] = false
+G2L["5"]["TextSize"] = 19
+G2L["5"]["TextColor3"] = Color3.fromRGB(18, 255, 0)
+G2L["5"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0)
+G2L["5"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+G2L["5"]["RichText"] = true
+G2L["5"]["Size"] = UDim2.new(0, 80, 0, 20)
+G2L["5"]["Name"] = [[Enter Key Button]]
+G2L["5"]["BorderColor3"] = Color3.fromRGB(255, 255, 255)
+G2L["5"]["Text"] = [[Enter Key]]
+G2L["5"]["Position"] = UDim2.new(0.152, 0, 0.70533, 0)
+
+G2L["6"] = Instance.new("TextButton", G2L["2"])
+G2L["6"]["TextWrapped"] = true
+G2L["6"]["BorderSizePixel"] = 2
+G2L["6"]["AutoButtonColor"] = false
+G2L["6"]["TextSize"] = 19
+G2L["6"]["TextColor3"] = Color3.fromRGB(9, 0, 255)
+G2L["6"]["BackgroundColor3"] = Color3.fromRGB(0, 0, 0)
+G2L["6"]["FontFace"] = Font.new([[rbxasset://fonts/families/FredokaOne.json]], Enum.FontWeight.Regular, Enum.FontStyle.Normal)
+G2L["6"]["RichText"] = true
+G2L["6"]["Size"] = UDim2.new(0, 80, 0, 20)
+G2L["6"]["Name"] = [[Get Key Button]]
+G2L["6"]["BorderColor3"] = Color3.fromRGB(255, 255, 255)
+G2L["6"]["Text"] = [[Get Key]]
+G2L["6"]["Position"] = UDim2.new(0.528, 0, 0.70533, 0)
+
+local function animateButton(button, startPos, endPos)
+    local tweenInfo = TweenInfo.new(0.2, Enum.EasingStyle.Bounce, Enum.EasingDirection.Out)
+    local goal = {Position = endPos}
+    local tween = game:GetService("TweenService"):Create(button, tweenInfo, goal)
+    tween:Play()
+end
+
+G2L["5"].MouseButton1Click:Connect(function()
+    animateButton(G2L["5"], G2L["5"].Position, UDim2.new(0.152, 0, 0.70533, 0) + UDim2.new(0, 0, 0, -10))
+    local enteredKey = G2L["4"].Text
+    if enteredKey == "correct_key_here" then
+        print("Key valid!")
+    else
+        print("Invalid key.")
+    end
+end)
+
+G2L["6"].MouseButton1Click:Connect(function()
+    animateButton(G2L["6"], G2L["6"].Position, UDim2.new(0.528, 0, 0.70533, 0) + UDim2.new(0, 0, 0, -10))
+    print("Key request initiated.")
+end)
+
+G2L["4"].FocusLost:Connect(function(enterPressed)
+    if enterPressed then
+        animateButton(G2L["4"], G2L["4"].Position, UDim2.new(0.1, 0, 0.2, 0) + UDim2.new(0, 0, 0, -10))
+    end
+end)
+
+G2L["2"]:TweenSize(UDim2.new(0, 250, 0, 125), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 0.5, true)
+G2L["4"]:TweenPosition(UDim2.new(0.1, 0, 0.2, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 0.5, true)
+G2L["5"]:TweenPosition(UDim2.new(0.152, 0, 0.70533, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 0.5, true)
+G2L["6"]:TweenPosition(UDim2.new(0.528, 0, 0.70533, 0), Enum.EasingDirection.Out, Enum.EasingStyle.Back, 0.5, true)
+
